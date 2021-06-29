@@ -11,7 +11,7 @@ import "../styles/room.scss";
 type FirebaseQuestions = Record<
   string,
   {
-    auth: {
+    author: {
       name: string;
       avatar: string;
     };
@@ -27,7 +27,7 @@ type RoomParams = {
 
 type Question = {
   id: string;
-  auth: {
+  author: {
     name: string;
     avatar: string;
   };
@@ -48,17 +48,16 @@ export function Room() {
   useEffect(() => {
     const roomRef = database.ref(`rooms/${roomId}`);
 
-    roomRef.once("value", (room) => {
+    roomRef.on("value", (room) => {
       const databaseRoom = room.val();
       const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
 
       const parsedQuestions = Object.entries(firebaseQuestions).map(
         ([key, value]) => {
-          console.log(key, value);
           return {
             id: key,
             content: value.content,
-            auth: value.auth,
+            author: value.author,
             isAnwered: value.isAnwered,
             isHighLighted: value.isHighLighted,
           };
