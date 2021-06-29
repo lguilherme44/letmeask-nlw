@@ -25,10 +25,23 @@ type RoomParams = {
   id: string;
 };
 
+type Question = {
+  id: string;
+  auth: {
+    name: string;
+    avatar: string;
+  };
+  content: string;
+  isAnwered: boolean;
+  isHighLighted: boolean;
+};
+
 export function Room() {
   const [newQuestion, setNewQueston] = useState("");
-  const { user } = useAuth();
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [title, setTitle] = useState("");
 
+  const { user } = useAuth();
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
@@ -45,14 +58,15 @@ export function Room() {
           return {
             id: key,
             content: value.content,
-            author: value.auth,
+            auth: value.auth,
             isAnwered: value.isAnwered,
             isHighLighted: value.isHighLighted,
           };
         }
       );
 
-      console.log(parsedQuestions);
+      setTitle(databaseRoom.title);
+      setQuestions(parsedQuestions);
     });
   }, [roomId]);
 
@@ -93,8 +107,8 @@ export function Room() {
 
       <main className="content">
         <div className="room-title">
-          <h1>sala react</h1>
-          <span>4 perguntas</span>
+          <h1>Sala {title}</h1>
+          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
 
         <form onSubmit={handleSendQuestion}>
@@ -120,6 +134,7 @@ export function Room() {
             </Button>
           </div>
         </form>
+        {JSON.stringify(questions)}
       </main>
     </div>
   );
