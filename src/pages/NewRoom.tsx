@@ -9,7 +9,7 @@ import { database } from "../services/firebase";
 
 export function NewRoom() {
   const history = useHistory();
-  const { user, signInWithGoogle } = useAuth();
+  const { user } = useAuth();
   const [newRoom, setNewRoom] = useState("");
 
   async function handleCreateRoom(e: FormEvent) {

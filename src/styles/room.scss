@@ -67,8 +67,9 @@
         border: 0;
         padding: 16px;
         border-radius: 8px;
-        background: #fefefe;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        background: #e8e8e8;
+        // background: #fefefe;
+        // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
         resize: vertical;
         min-height: 130px;
       }
@@ -84,8 +85,8 @@
           align-items: center;
 
           img {
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
           }
 
