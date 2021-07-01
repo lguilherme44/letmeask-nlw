@@ -3,9 +3,8 @@ import { database } from "../../services/firebase";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../components/Button";
-import { useTheme } from "../../hooks/useTheme";
+// import { useTheme } from "../../hooks/useTheme";
 import { Aside } from "../../components/Aside";
-import logoImg from "../../assets/images/logo.svg";
 import logoWhite from "../../assets/images/logo-white.svg";
 import googleIconImg from "../../assets/images/google-icon.svg";
 import "../../styles/auth.scss";
@@ -13,7 +12,7 @@ import toast from "react-hot-toast";
 
 export function Home() {
   const history = useHistory();
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   const { user, signInWithGoogle } = useAuth();
   const [roomCode, setRoomCode] = useState("");
 
