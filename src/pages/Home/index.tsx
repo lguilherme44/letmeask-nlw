@@ -1,15 +1,19 @@
 import { FormEvent, useState } from "react";
-import { database } from "../services/firebase";
-import { useAuth } from "../hooks/useAuth";
+import { database } from "../../services/firebase";
+import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
-import { Button } from "../components/Button";
-import illustrationImg from "../assets/images/illustration.svg";
-import logoImg from "../assets/images/logo.svg";
-import googleIconImg from "../assets/images/google-icon.svg";
-import "../styles/auth.scss";
+import { Button } from "../../components/Button";
+import { useTheme } from "../../hooks/useTheme";
+import { Aside } from "../../components/Aside";
+import logoImg from "../../assets/images/logo.svg";
+import logoWhite from "../../assets/images/logo-white.svg";
+import googleIconImg from "../../assets/images/google-icon.svg";
+import "../../styles/auth.scss";
+import toast from "react-hot-toast";
 
 export function Home() {
   const history = useHistory();
+  const { theme } = useTheme();
   const { user, signInWithGoogle } = useAuth();
   const [roomCode, setRoomCode] = useState("");
 
@@ -31,12 +35,12 @@ export function Home() {
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
     if (!roomRef.exists()) {
-      alert("Room does not exists.");
+      toast.error("Room does not exists.");
       return;
     }
 
     if (roomRef.val().closedAt) {
-      alert("Room already closed.");
+      toast.error("Room already closed.");
       return;
     }
 
@@ -45,24 +49,17 @@ export function Home() {
 
   return (
     <div id="page-auth">
-      <aside>
-        <img
-          src={illustrationImg}
-          alt="Ilustração simbolizando perguntas e respostas"
-        />
-        <strong>Crie salas de Q&amp;A ao-vivo</strong>
-        <p>Tire as dúvidas da sua adiência em tempo-real</p>
-      </aside>
+      <Aside />
 
       <main>
         <div className="main-content">
-          <img src={logoImg} alt="Letmeask" />
+          <img src={logoWhite} alt="Letmeask" />
           <button className="create-room" onClick={handleCreateRoom}>
             <img src={googleIconImg} alt="Logo do Google" />
             Crie sua sala com o Google
           </button>
 
-          <div className="separator">ou entre em uma sala</div>
+          <div className="separator">ou entre em uma sala existente</div>
 
           <form onSubmit={handleJoinRoom}>
             <input
@@ -72,7 +69,7 @@ export function Home() {
               value={roomCode}
             />
 
-            <Button type="submit">Entrar na sala</Button>
+            <Button type="submit">Entrar</Button>
           </form>
         </div>
       </main>

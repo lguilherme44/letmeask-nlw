@@ -1,9 +1,11 @@
-.button {
+import styled from "styled-components";
+
+export const ButtonStyled = styled.button`
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background: #835afd;
-  color: #fff;
+  background: ${({ theme }) => theme.colors.grandient2};
+  color: ${({ theme }) => theme.colors.grayDark};
   padding: 0 32px;
 
   display: flex;
@@ -33,4 +35,4 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
-}
+`;

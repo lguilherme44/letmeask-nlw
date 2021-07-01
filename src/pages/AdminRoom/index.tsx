@@ -1,17 +1,21 @@
 import { useParams, useHistory } from "react-router-dom";
+import { database } from "../../services/firebase";
 
-import logoImg from "../assets/images/logo.svg";
-import deleteImg from "../assets/images/delete.svg";
-import checkImg from "../assets/images/check.svg";
-import answerImg from "../assets/images/answer.svg";
+/** images */
+import deleteImg from "../../assets/images/delete.svg";
+import checkImg from "../../assets/images/check.svg";
+import answerImg from "../../assets/images/answer.svg";
 
-import { Button } from "../components/Button";
-import { Question } from "../components/Question";
-import { RoomCode } from "../components/RoomCode";
-import { useRoom } from "../hooks/useRoom";
+/** components */
+import { Button } from "../../components/Button";
+import { Question } from "../../components/Question";
+import { Header } from "../../components/Header";
 
-import "../styles/room.scss";
-import { database } from "../services/firebase";
+/** hooks */
+import { useRoom } from "../../hooks/useRoom";
+
+import "../../styles/room.scss";
+import Swal from "sweetalert2";
 
 type RoomParams = {
   id: string;
@@ -33,10 +37,19 @@ export function AdminRoom() {
     history.push("/");
   }
 
-  async function handleDeleteQuestion(questionId: string) {
-    if (window.confirm("Tem certeza que deseja excluir essa pergunta?")) {
-      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
-    }
+  function handleDeleteQuestion(questionId: string) {
+    Swal.fire({
+      title: "Are you sure you want to delete this question?",
+      showCancelButton: true,
+      showConfirmButton: true,
+      cancelButtonText: `Cancel`,
+      confirmButtonText: `Yes`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Question deleted with success.", "", "success");
+        database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
+      }
+    });
   }
 
   async function handleCheckQuestionAsAnswered(questionId: string) {
@@ -53,17 +66,11 @@ export function AdminRoom() {
 
   return (
     <div id="page-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Letmeask" />
-          <div>
-            <RoomCode code={roomId} />
-            <Button isOutlined onClick={handleEndRoom}>
-              Encerrar sala
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Header roomId={roomId}>
+        <Button isOutlined onClick={handleEndRoom}>
+          Encerrar sala
+        </Button>
+      </Header>
 
       <main>
         <div className="room-title">

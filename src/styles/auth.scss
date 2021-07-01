@@ -2,35 +2,10 @@
   display: flex;
   align-items: stretch;
   height: 100vh;
-
-  aside {
-    flex: 7;
-    background: #835afd;
-    color: #fff;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    padding: 120px 80px;
-
-    img {
-      max-width: 320px;
-    }
-
-    strong {
-      font: 700 36px "Poppins", sans-serif;
-      line-height: 42px;
-      margin-top: 1rem;
-    }
-
-    p {
-      font-size: 24px;
-      line-height: 32px;
-      margin-top: 1rem;
-      color: #f8f8f8;
-    }
-  }
+  width: 100%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
 
   main {
     flex: 8;
@@ -46,7 +21,7 @@
     width: 100%;
     max-width: 320px;
     align-items: stretch;
-    text-align: center;
+    text-align: left;
 
     > img {
       align-self: center;
@@ -83,7 +58,7 @@
       margin-top: 1rem;
 
       a {
-        color: #e559f9;
+        color: #5999f9;
       }
     }
   }
