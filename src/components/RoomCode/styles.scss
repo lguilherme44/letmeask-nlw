@@ -1,16 +1,15 @@
 .room-code {
   border-radius: 8px;
   overflow: hidden;
-
-  background: #fff;
-  border: 1px solid #835afd;
+  border: 0;
+  background: #4a494e;
   cursor: pointer;
 
   display: flex;
 
   div {
     height: 40px;
-    background-color: #835afd;
+    background: #4a494e;
     padding: 0 12px;
     display: flex;
     justify-content: center;
